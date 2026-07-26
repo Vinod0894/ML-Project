@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from src.components.data_tranformation import DataTransfromationConfig
 from src.components.data_tranformation import DataTransformtion
+from src.components.model_trainer import ModelTrainner
+from src.components.model_trainer import ModelTrainnerConfig
 
 @dataclass
 class DataIngestionConfig():
@@ -36,9 +38,12 @@ class DataIngestion():
             )
         except Exception as e:
             raise CustomException(e,sys)
-if __name__==__name__:
+if __name__ == "__main__":
     obj=DataIngestion()
-    train_data,c=obj.initiate_data_ingestion()
+    train_data,test_data=obj.initiate_data_ingestion()
 
     data_tranformation =DataTransformtion()
-    data_tranformation.initiate_data_tranformation(train_data,train_data)
+    train_arr,test_arr,_ = data_tranformation.initiate_data_tranformation(train_data,test_data)
+
+    model_trainner=ModelTrainner()
+    print(model_trainner.initiate_model_trainner(train_arr,test_arr))
